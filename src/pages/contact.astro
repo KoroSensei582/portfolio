@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TickRule from '../components/TickRule.astro';
+
+const links = [
+  { label: 'EMAIL',    value: 'ahmeds2609@gmail.com',          href: 'mailto:ahmeds2609@gmail.com' },
+  { label: 'GITHUB',   value: 'github.com/KoroSensei582',          href: 'https://github.com/KoroSensei582' },
+  { label: 'LINKEDIN', value: 'linkedin.com/in/—',                 href: '#' },
+];
+---
+
+<Layout
+  title="Contact — Shahir Ahmed"
+  description="Get in touch with Shahir Ahmed."
+>
+  <TickRule />
+
+  <div class="mx-auto max-w-container px-6 sm:px-8 pt-16 pb-28">
+    <div class="max-w-prose">
+      <div class="coord-line mb-10">
+        <span>[&nbsp;00.04&nbsp;]&nbsp;&nbsp;CONTACT</span>
+        <span class="hidden sm:inline">LAT 42.7370°N&nbsp;&nbsp;LON 84.4839°W</span>
+        <span class="sm:hidden">42.7370°N / 84.4839°W</span>
+      </div>
+
+      <h1
+        class="font-display text-h1 text-fg m-0 mb-12 text-balance"
+        style="font-variation-settings: 'opsz' 72"
+      >
+        Contact<span class="text-accent">.</span>
+      </h1>
+
+      <ul role="list" class="list-none m-0 p-0 border-t border-rule">
+        {links.map(({ label, value, href }, i) => (
+          <li class="flex items-baseline gap-4 py-5 border-b border-rule">
+            <span
+              class="font-mono text-coord text-accent flex-shrink-0"
+              aria-hidden="true"
+            >
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div class="flex-1 min-w-0">
+              <div class="font-mono text-micro uppercase text-fg-muted mb-1">
+                / {label}
+              </div>
+              <a
+                href={href}
+                class="font-mono text-body text-fg hover:text-accent transition-colors"
+                {...href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+              >
+                {value}
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Layout>
