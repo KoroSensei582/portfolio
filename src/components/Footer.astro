@@ -1,17 +1,32 @@
 ---
-const year = new Date().getFullYear();
+import TickRule from './TickRule.astro';
+
+const build = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
 ---
 
-<footer class="mt-28">
-  <div class="tick-rule-footer"></div>
-  <div class="mx-auto max-w-container px-8 py-10">
-    <div class="flex items-center justify-between">
-      <span class="font-mono text-coord text-fg-muted uppercase tracking-[0.12em]">
-        &#9698; SHAHIR.AHMED
-      </span>
-      <span class="font-mono text-coord text-fg-muted uppercase tracking-[0.12em]">
-        {year}
-      </span>
+<footer class="border-t border-rule">
+  <div class="mx-auto max-w-container px-6 sm:px-8 py-10">
+    <div class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
+      <address class="not-italic font-mono flex flex-col gap-1">
+        <a
+          href="mailto:shahirahmed117@gmail.com"
+          class="text-meta text-fg-secondary hover:text-fg transition-colors duration-fast"
+        >
+          shahirahmed117@gmail.com
+        </a>
+        <span class="text-coord text-fg-muted uppercase">
+          LINKEDIN / GITHUB / RESUME
+        </span>
+      </address>
+
+      <div class="font-mono text-coord text-fg-muted uppercase sm:text-right flex flex-col gap-1">
+        <span>BUILD {build}</span>
+        <span>EAST LANSING, MI</span>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <TickRule variant="footer" />
     </div>
   </div>
 </footer>

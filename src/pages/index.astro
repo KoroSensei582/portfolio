@@ -4,75 +4,138 @@ import TickRule from '../components/TickRule.astro';
 import ProjectBlock from '../components/ProjectBlock.astro';
 import { getCollection } from 'astro:content';
 
-const allProjects = await getCollection('projects');
-const projects = allProjects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const all = await getCollection('projects');
+
+// Featured on homepage — order matches the selected-work direction in the design
+const featuredSlugs = ['imu-board', 'hand-controlled-drone', 'pedometer-workshop'];
+const featured = featuredSlugs
+  .map((s) => all.find((p) => p.slug === s))
+  .filter((p): p is NonNullable<typeof p> => p !== undefined);
+
+const roles = [
+  { title: 'Undergraduate Researcher',     org: 'MICROTECHNOLOGY LAB, MSU',  period: '2025—' },
+  { title: 'Technical Director',           org: 'IEEE MSU STUDENT BRANCH',   period: '2026—' },
+  { title: 'Vehicle Controls & Sensing',   org: 'MSU SOLAR CAR RACING',      period: '2025—' },
+];
+
+const incomingRole = {
+  title: 'Undergraduate Researcher',
+  org: 'PHOTONICS LAB, PROF. CLARK',
+  period: 'SUMMER 2026',
+};
 ---
 
-<Layout title="Shahir Ahmed">
+<Layout title="Shahir Ahmed — Electrical Engineering at MSU">
 
-  <!-- Tick rule -->
   <TickRule />
 
-  <!-- Hero -->
-  <section class="mx-auto max-w-container px-8 pt-16 pb-24">
-    <div class="coord-line mb-10">
-      <span>[ 00.01 ]  EE / MSU</span>
-      <span>LAT 42.7370°N &nbsp; LON 84.4839°W</span>
+  <!-- HERO ──────────────────────────────────────────── -->
+  <section
+    aria-labelledby="hero-heading"
+    class="mx-auto max-w-container px-6 sm:px-8 pt-12 sm:pt-16 pb-16 sm:pb-20"
+  >
+    <div class="coord-line mb-10 sm:mb-12 reveal-item" style="--i: 0;">
+      <span>[&nbsp;00.00&nbsp;]&nbsp;&nbsp;EE / MSU</span>
+      <span class="hidden sm:inline">LAT 42.7370°N&nbsp;&nbsp;LON 84.4839°W</span>
+      <span class="sm:hidden">42.7370°N / 84.4839°W</span>
     </div>
 
     <h1
-      class="font-display text-display text-fg m-0 text-balance"
-      style="font-variation-settings: 'opsz' 96, 'wdth' 100"
+      id="hero-heading"
+      class="font-display text-display text-fg m-0 text-balance reveal-item"
+      style="--i: 1; font-variation-settings: 'opsz' 96, 'wdth' 100"
     >
-      Shahir Ahmed<span class="text-accent">.</span>
+      Shahir<br />Ahmed<span class="text-accent">.</span>
     </h1>
 
-    <p class="font-mono text-lede text-fg-secondary mt-8 max-w-ch60">
-      First-year EE at Michigan State. I work between sensors and the software reading them —
-      PCB design, embedded firmware, and the signal-chain decisions in between.
-    </p>
+    <div class="mt-10 grid gap-10 md:grid-cols-2">
+      <p class="font-mono text-lede text-fg-secondary m-0 max-w-ch60 text-pretty reveal-item" style="--i: 2;">
+        Undergraduate electrical engineer at Michigan&nbsp;State, working on
+        microelectronics, embedded systems, and electrochemical sensing.
+      </p>
+
+      <ol
+        role="list"
+        aria-label="Current and upcoming roles"
+        class="list-none m-0 p-0 flex flex-col gap-4"
+      >
+        {roles.map((role, i) => (
+          <li class="flex items-baseline gap-4 reveal-item" style={`--i: ${3 + i};`}>
+            <span
+              class="font-mono text-coord text-accent flex-shrink-0"
+              aria-hidden="true"
+            >
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div class="flex-1 min-w-0">
+              <div class="font-mono text-meta text-fg">{role.title}</div>
+              <div class="font-mono text-coord text-fg-muted mt-1">
+                {role.org} · {role.period}
+              </div>
+            </div>
+          </li>
+        ))}
+
+        <li class="flex items-baseline gap-4 pt-4 border-t border-rule reveal-item" style="--i: 6;">
+          <span
+            class="font-mono text-coord text-accent flex-shrink-0"
+            aria-hidden="true"
+          >
+            04
+          </span>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="font-mono text-meta text-fg">{incomingRole.title}</span>
+              <span class="badge">INCOMING</span>
+            </div>
+            <div class="font-mono text-coord text-fg-muted tracking-[0.06em] mt-1">
+              {incomingRole.org} · {incomingRole.period}
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
   </section>
 
-  <!-- Accent divider -->
-  <div class="accent-rule mx-auto max-w-container"></div>
+  <!-- ACCENT RULE ───────────────────────────────────── -->
+  <div class="mx-auto max-w-container px-6 sm:px-8 reveal-item" style="--i: 7;">
+    <div class="accent-rule"></div>
+  </div>
 
-  <!-- Projects -->
-  <section class="mx-auto max-w-container px-8 pt-14 pb-28">
-    <h2
-      class="font-display text-h2 text-fg m-0 mb-10"
-      style="font-variation-settings: 'opsz' 64"
-    >
-      Projects<span class="text-accent">.</span>
-    </h2>
+  <!-- PROJECTS ──────────────────────────────────────── -->
+  <section
+    aria-labelledby="projects-heading"
+    class="mx-auto max-w-container px-6 sm:px-8 pt-16 sm:pt-20 pb-20 sm:pb-24"
+  >
+    <header class="flex flex-wrap items-end justify-between gap-6 mb-10 reveal-item" style="--i: 8;">
+      <div>
+        <div class="font-mono text-micro uppercase text-fg-muted mb-3">
+          / SELECTED WORK
+        </div>
+        <h2
+          id="projects-heading"
+          class="font-display text-h2 text-fg m-0 text-balance"
+          style="font-variation-settings: 'opsz' 64"
+        >
+          Projects<span class="text-accent">.</span>
+        </h2>
+      </div>
+      <a href="/projects" class="btn-ghost">ALL PROJECTS <span aria-hidden="true">→</span></a>
+    </header>
 
-    <div>
-      {projects.map((project, i) => (
+    <div class="border-b border-rule">
+      {featured.map((project, i) => (
         <ProjectBlock
           index={i + 1}
           title={project.data.title}
-          slug={project.slug}
           summary={project.data.summary}
           status={project.data.status}
           role={project.data.role}
           tools={project.data.tools}
           date={project.data.date}
+          revealIndex={9 + i}
         />
       ))}
-      <!-- Bottom border on last item -->
-      <div class="border-b border-rule"></div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="mx-auto max-w-container px-8 pt-14 pb-28">
-    <h2
-      class="font-display text-h2 text-fg m-0 mb-10"
-      style="font-variation-settings: 'opsz' 64"
-    >
-      Contact<span class="text-accent">.</span>
-    </h2>
-    <div class="meta-cluster flex-col items-start gap-4 text-fg-secondary" style="font-size: 0.875rem; letter-spacing: 0.04em; text-transform: none">
-      <p class="m-0">shahirahmed117@gmail.com</p>
     </div>
   </section>
 

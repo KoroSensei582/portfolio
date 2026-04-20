@@ -9,11 +9,12 @@ import TickRule from '../components/TickRule.astro';
 >
   <TickRule />
 
-  <div class="mx-auto max-w-container px-8 pt-16 pb-28">
+  <div class="mx-auto max-w-container px-6 sm:px-8 pt-16 pb-28">
     <div class="max-w-prose">
       <div class="coord-line mb-10">
-        <span>[ 00.02 ]  ABOUT</span>
-        <span>LAT 42.7370°N &nbsp; LON 84.4839°W</span>
+        <span>[&nbsp;00.02&nbsp;]&nbsp;&nbsp;ABOUT</span>
+        <span class="hidden sm:inline">LAT 42.7370°N&nbsp;&nbsp;LON 84.4839°W</span>
+        <span class="sm:hidden">42.7370°N / 84.4839°W</span>
       </div>
 
       <h1
@@ -23,7 +24,7 @@ import TickRule from '../components/TickRule.astro';
         About<span class="text-accent">.</span>
       </h1>
 
-      <div class="font-mono text-body text-fg-secondary leading-[1.65] space-y-6 max-w-ch60">
+      <div class="font-mono text-body text-fg-secondary space-y-6 max-w-ch60">
         <p>
           I'm a first-year electrical engineering student at Michigan State, and most of what I do
           sits between a sensor and the software reading it. In the Microtechnology Lab I work on
@@ -50,8 +51,8 @@ import TickRule from '../components/TickRule.astro';
       </div>
 
       <div class="mt-16 border-t border-rule pt-10">
-        <h2 class="font-mono text-meta text-fg-muted uppercase tracking-[0.14em] m-0 mb-6">
-          Contact
+        <h2 class="font-mono text-micro text-fg-muted uppercase m-0 mb-6">
+          / CONTACT
         </h2>
         <div class="meta-cluster flex-col items-start gap-3" style="font-size: 0.875rem; text-transform: none; letter-spacing: 0.02em; color: var(--fg-secondary)">
           <span>shahirahmed117@gmail.com</span>

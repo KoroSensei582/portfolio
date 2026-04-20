@@ -1,12 +1,12 @@
 ---
 interface Props {
-  status: 'in-progress' | 'ongoing' | 'complete';
+  status: 'in-progress' | 'ongoing' | 'complete' | 'incoming';
 }
 const { status } = Astro.props;
 
 const label =
-  status === 'in-progress' ? 'IN PROGRESS' :
-  status === 'ongoing'     ? 'IN PROGRESS' :
+  status === 'in-progress' || status === 'ongoing' ? 'IN PROGRESS' :
+  status === 'incoming'                             ? 'INCOMING'    :
   null;
 ---
 

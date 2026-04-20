@@ -14,10 +14,11 @@ const projects = allProjects.sort((a, b) => b.data.date.getTime() - a.data.date.
 >
   <TickRule />
 
-  <div class="mx-auto max-w-container px-8 pt-16 pb-28">
+  <div class="mx-auto max-w-container px-6 sm:px-8 pt-16 pb-28">
     <div class="coord-line mb-10">
-      <span>[ 00.03 ]  PROJECTS</span>
-      <span>LAT 42.7370°N &nbsp; LON 84.4839°W</span>
+      <span>[&nbsp;00.03&nbsp;]&nbsp;&nbsp;PROJECTS</span>
+      <span class="hidden sm:inline">LAT 42.7370°N&nbsp;&nbsp;LON 84.4839°W</span>
+      <span class="sm:hidden">42.7370°N / 84.4839°W</span>
     </div>
 
     <h1
@@ -32,12 +33,12 @@ const projects = allProjects.sort((a, b) => b.data.date.getTime() - a.data.date.
         <ProjectBlock
           index={i + 1}
           title={project.data.title}
-          slug={project.slug}
           summary={project.data.summary}
           status={project.data.status}
           role={project.data.role}
           tools={project.data.tools}
           date={project.data.date}
+          headingLevel={2}
         />
       ))}
       <div class="border-b border-rule"></div>

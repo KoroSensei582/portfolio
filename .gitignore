@@ -22,3 +22,7 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+
+# Design mockup (kept locally, not shipped)
+mockup-c-expressive.html
