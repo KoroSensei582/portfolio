@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TickRule from '../../components/TickRule.astro';
+import ProjectBlock from '../../components/ProjectBlock.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout
+  title="Projects — Shahir Ahmed"
+  description="PCB design, embedded firmware, and hardware projects by Shahir Ahmed."
+>
+  <TickRule />
+
+  <div class="mx-auto max-w-container px-8 pt-16 pb-28">
+    <div class="coord-line mb-10">
+      <span>[ 00.03 ]  PROJECTS</span>
+      <span>LAT 42.7370°N &nbsp; LON 84.4839°W</span>
+    </div>
+
+    <h1
+      class="font-display text-h1 text-fg m-0 mb-14 text-balance"
+      style="font-variation-settings: 'opsz' 72"
+    >
+      Projects<span class="text-accent">.</span>
+    </h1>
+
+    <div>
+      {projects.map((project, i) => (
+        <ProjectBlock
+          index={i + 1}
+          title={project.data.title}
+          slug={project.slug}
+          summary={project.data.summary}
+          status={project.data.status}
+          role={project.data.role}
+          tools={project.data.tools}
+          date={project.data.date}
+        />
+      ))}
+      <div class="border-b border-rule"></div>
+    </div>
+  </div>
+</Layout>

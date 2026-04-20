@@ -1,0 +1,8 @@
+---
+interface Props {
+  variant?: 'top' | 'footer';
+}
+const { variant = 'top' } = Astro.props;
+---
+
+<div class:list={[variant === 'footer' ? 'tick-rule-footer' : 'tick-rule']}></div>

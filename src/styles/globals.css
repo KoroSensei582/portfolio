@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens ──────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --bg: #050505;
+  --bg-elevated: #0D0D0D;
+  --bg-subtle: #141414;
+
+  /* Rules */
+  --rule: #1F1F1F;
+  --rule-strong: #2E2E2E;
+
+  /* Foreground */
+  --fg: #F5F5F5;
+  --fg-secondary: #A8A8A8;
+  --fg-muted: #5A5A5A;
+
+  /* Accent — used only for the seven approved use-cases in DESIGN.md */
+  --accent: #F97316;
+  --accent-dim: #A13F00;
+  --focus: var(--accent);
+
+  /* Motion */
+  --motion-fast: 120ms;
+  --motion-base: 150ms;
+  --motion-slow: 200ms;
+  --motion-hold: 1500ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Radii */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius: 4px;
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: var(--fg);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Nav ────────────────────────────────────────────────────── */
+.nav-link {
+  color: var(--fg-secondary);
+  padding: 4px 0;
+  transition: color var(--motion-fast) ease;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.nav-link:hover { color: var(--fg); }
+.nav-link.active { color: var(--fg); }
+.nav-link.active::before {
+  content: '●';
+  color: var(--accent);
+  margin-right: 6px;
+  font-size: 8px;
+  position: relative;
+  top: -3px;
+}
+.nav-link:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 10px 16px;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--fg-secondary);
+  border-radius: var(--radius);
+  transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease;
+  cursor: pointer;
+}
+.btn:hover {
+  border-color: var(--fg);
+  background-color: var(--bg-subtle);
+}
+.btn:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+.btn:disabled {
+  color: var(--fg-muted);
+  border-color: var(--rule);
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--fg-secondary);
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-transform: uppercase;
+}
+.btn-ghost:hover { color: var(--fg); }
+.btn-ghost:hover::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%; height: 1px;
+  background: currentColor;
+}
+
+/* ─── Badge ──────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ─── Metadata cluster ───────────────────────────────────────── */
+.meta-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* ─── Tick rule ──────────────────────────────────────────────── */
+.tick-rule {
+  height: 14px;
+  background-image: linear-gradient(to right, var(--rule-strong) 1px, transparent 1px);
+  background-size: 48px 14px;
+  background-position: 0 bottom;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.tick-rule-footer {
+  height: 14px;
+  background-image: linear-gradient(to right, var(--rule-strong) 1px, transparent 1px);
+  background-size: 48px 14px;
+  background-position: 0 top;
+  border-top: 1px solid var(--rule-strong);
+}
+
+/* ─── Accent rule ────────────────────────────────────────────── */
+.accent-rule { height: 1px; background: var(--accent); }
+
+/* ─── Coord line ─────────────────────────────────────────────── */
+.coord-line {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}

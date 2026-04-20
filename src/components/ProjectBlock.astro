@@ -1,0 +1,64 @@
+---
+import Badge from './Badge.astro';
+
+interface Props {
+  index: number;
+  title: string;
+  slug: string;
+  summary: string;
+  status: 'complete' | 'in-progress' | 'ongoing';
+  role: string;
+  tools: string[];
+  date: Date;
+}
+
+const { index, title, slug, summary, status, role, tools, date } = Astro.props;
+const year = date.getFullYear();
+const num = String(index).padStart(2, '0');
+---
+
+<article class="border-t border-rule group">
+  <a
+    href={`/projects/${slug}`}
+    class="grid gap-8 py-10 no-underline transition-colors duration-fast hover:bg-bg-subtle"
+    style="grid-template-columns: 160px 1fr"
+  >
+    <!-- Index column -->
+    <div class="flex flex-col gap-3">
+      <span
+        class="font-display text-index text-accent leading-none"
+        style="font-variation-settings: 'opsz' 96, 'wdth' 85"
+        aria-hidden="true"
+      >
+        {num}
+      </span>
+      <div class="flex flex-col gap-1">
+        {status === 'complete' ? (
+          <div class="flex flex-col">
+            <span class="font-mono text-micro uppercase tracking-[0.14em] text-fg-muted">Complete</span>
+            <span class="font-mono text-micro uppercase tracking-[0.14em] text-fg-muted">{year}</span>
+          </div>
+        ) : (
+          <Badge status={status} />
+        )}
+      </div>
+    </div>
+
+    <!-- Content column -->
+    <div class="flex flex-col gap-5">
+      <h3
+        class="font-display text-h3 text-fg m-0"
+        style="font-variation-settings: 'opsz' 48"
+      >
+        {title}
+      </h3>
+      <p class="font-mono text-lede text-fg-secondary m-0 max-w-ch60">
+        {summary}
+      </p>
+      <div class="meta-cluster">
+        <span>ROLE / {role}</span>
+        {tools.map((t) => <span>TOOL / {t}</span>)}
+      </div>
+    </div>
+  </a>
+</article>

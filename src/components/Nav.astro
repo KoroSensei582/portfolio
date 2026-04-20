@@ -1,0 +1,69 @@
+---
+const pathname = Astro.url.pathname;
+
+const links = [
+  { href: '/about', label: 'ABOUT' },
+  { href: '/projects', label: 'PROJECTS' },
+  { href: '/#contact', label: 'CONTACT' },
+];
+
+function isActive(href: string) {
+  if (href.startsWith('/#')) return false;
+  return pathname === href || pathname.startsWith(href + '/');
+}
+---
+
+<header
+  id="site-nav"
+  class="fixed top-0 left-0 right-0 z-50 h-16 transition-[background-color,border-color] duration-base"
+  data-scrolled="false"
+>
+  <div class="mx-auto max-w-container px-8 h-full flex items-center justify-between">
+    <!-- Wordmark -->
+    <a href="/" class="flex items-center gap-3 no-underline">
+      <span class="text-accent font-mono text-base leading-none select-none" aria-hidden="true">◢</span>
+      <span
+        class="font-mono text-nav font-medium tracking-[0.08em] text-fg"
+        style="letter-spacing: 0.08em"
+      >SHAHIR.AHMED</span>
+    </a>
+
+    <!-- Nav links -->
+    <nav aria-label="Primary navigation">
+      <ul class="flex items-center gap-8 list-none m-0 p-0">
+        {links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class:list={['nav-link', { active: isActive(href) }]}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  if (nav) {
+    const update = () => {
+      const scrolled = window.scrollY >= 8;
+      nav.dataset.scrolled = String(scrolled);
+      if (scrolled) {
+        nav.style.cssText = `
+          background: rgba(5,5,5,0.72);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border-bottom: 1px solid var(--rule);
+        `;
+      } else {
+        nav.style.cssText = '';
+      }
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>

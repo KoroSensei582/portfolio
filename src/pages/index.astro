@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TickRule from '../components/TickRule.astro';
+import ProjectBlock from '../components/ProjectBlock.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title="Shahir Ahmed">
+
+  <!-- Tick rule -->
+  <TickRule />
+
+  <!-- Hero -->
+  <section class="mx-auto max-w-container px-8 pt-16 pb-24">
+    <div class="coord-line mb-10">
+      <span>[ 00.01 ]  EE / MSU</span>
+      <span>LAT 42.7370°N &nbsp; LON 84.4839°W</span>
+    </div>
+
+    <h1
+      class="font-display text-display text-fg m-0 text-balance"
+      style="font-variation-settings: 'opsz' 96, 'wdth' 100"
+    >
+      Shahir Ahmed<span class="text-accent">.</span>
+    </h1>
+
+    <p class="font-mono text-lede text-fg-secondary mt-8 max-w-ch60">
+      First-year EE at Michigan State. I work between sensors and the software reading them —
+      PCB design, embedded firmware, and the signal-chain decisions in between.
+    </p>
+  </section>
+
+  <!-- Accent divider -->
+  <div class="accent-rule mx-auto max-w-container"></div>
+
+  <!-- Projects -->
+  <section class="mx-auto max-w-container px-8 pt-14 pb-28">
+    <h2
+      class="font-display text-h2 text-fg m-0 mb-10"
+      style="font-variation-settings: 'opsz' 64"
+    >
+      Projects<span class="text-accent">.</span>
+    </h2>
+
+    <div>
+      {projects.map((project, i) => (
+        <ProjectBlock
+          index={i + 1}
+          title={project.data.title}
+          slug={project.slug}
+          summary={project.data.summary}
+          status={project.data.status}
+          role={project.data.role}
+          tools={project.data.tools}
+          date={project.data.date}
+        />
+      ))}
+      <!-- Bottom border on last item -->
+      <div class="border-b border-rule"></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="mx-auto max-w-container px-8 pt-14 pb-28">
+    <h2
+      class="font-display text-h2 text-fg m-0 mb-10"
+      style="font-variation-settings: 'opsz' 64"
+    >
+      Contact<span class="text-accent">.</span>
+    </h2>
+    <div class="meta-cluster flex-col items-start gap-4 text-fg-secondary" style="font-size: 0.875rem; letter-spacing: 0.04em; text-transform: none">
+      <p class="m-0">shahirahmed117@gmail.com</p>
+    </div>
+  </section>
+
+</Layout>

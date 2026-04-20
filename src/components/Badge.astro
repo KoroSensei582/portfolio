@@ -1,0 +1,13 @@
+---
+interface Props {
+  status: 'in-progress' | 'ongoing' | 'complete';
+}
+const { status } = Astro.props;
+
+const label =
+  status === 'in-progress' ? 'IN PROGRESS' :
+  status === 'ongoing'     ? 'IN PROGRESS' :
+  null;
+---
+
+{label && <span class="badge">{label}</span>}
