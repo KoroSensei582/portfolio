@@ -29,3 +29,6 @@ mockup-c-expressive.html
 
 # Local-only maintenance guide
 docs/MAINTENANCE.md
+
+# Local-only audit backlog
+docs/AUDIT.md
