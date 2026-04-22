@@ -26,3 +26,6 @@ Thumbs.db
 
 # Design mockup (kept locally, not shipped)
 mockup-c-expressive.html
+
+# Local-only maintenance guide
+docs/MAINTENANCE.md
