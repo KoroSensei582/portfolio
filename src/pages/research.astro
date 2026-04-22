@@ -1,6 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TickRule from '../components/TickRule.astro';
+import CoordLine from '../components/CoordLine.astro';
+import HeroMedia from '../components/HeroMedia.astro';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('research');
+const items = all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const typeLabels: Record<'lab-work' | 'conference' | 'paper-reading', string> = {
+  'lab-work': 'LAB WORK',
+  'conference': 'CONFERENCE',
+  'paper-reading': 'PAPER READING',
+};
 ---
 
 <Layout
@@ -10,54 +22,49 @@ import TickRule from '../components/TickRule.astro';
   <TickRule />
 
   <div class="mx-auto max-w-container px-6 sm:px-8 pt-16 pb-28">
-    <div class="max-w-prose">
-      <div class="coord-line mb-10">
-        <span>[&nbsp;00.03&nbsp;]&nbsp;&nbsp;RESEARCH</span>
-        <span class="hidden sm:inline">LAT 42.7370°N&nbsp;&nbsp;LON 84.4839°W</span>
-        <span class="sm:hidden">42.7370°N / 84.4839°W</span>
-      </div>
+    <CoordLine page="/research" />
 
-      <h1
-        class="font-display text-h1 text-fg m-0 mb-12 text-balance"
-        style="font-variation-settings: 'opsz' 72"
-      >
-        Research<span class="text-accent">.</span>
-      </h1>
+    <h1
+      class="font-display text-h1 text-fg m-0 mb-14 text-balance"
+      style="font-variation-settings: 'opsz' 72"
+    >
+      Research<span class="text-accent">.</span>
+    </h1>
 
-      <div class="font-mono text-body text-fg-secondary space-y-10 max-w-ch60">
-        <section>
-          <h2 class="font-mono text-micro text-fg-muted uppercase m-0 mb-4">
-            / CURRENT WORK
-          </h2>
-          <p>
-            Undergraduate researcher in the Microtechnology Lab at Michigan State,
-            running electrochemical experiments — cyclic voltammetry, differential-pulse
-            voltammetry, and fast-scan cyclic voltammetry — and contributing to the
-            development of a microfluidic potentiostat.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="font-mono text-micro text-fg-muted uppercase m-0 mb-4">
-            / UURAF 2026
-          </h2>
-          <p>
-            Presented a poster comparing the microstructure and elemental composition
-            of authentic versus third-party Apple Lightning connector probes, using
-            scanning electron microscopy (SEM) and energy-dispersive X-ray spectroscopy
-            (EDS).
-          </p>
-        </section>
-
-        <section>
-          <h2 class="font-mono text-micro text-fg-muted uppercase m-0 mb-4">
-            / INTERESTS
-          </h2>
-          <p>
-            RF-photonics, photonic integrated circuits, and microelectronics.
-          </p>
-        </section>
-      </div>
+    <div class="border-t border-rule mb-16">
+      {items.map((item) => (
+        <a
+          href={`/research/${item.slug}`}
+          class="group no-underline grid gap-6 md:gap-8 md:grid-cols-[minmax(0,_1fr)_280px] border-b border-rule py-10"
+        >
+          <div class="min-w-0">
+            <div class="font-mono text-micro text-fg-muted uppercase mb-4">
+              / {typeLabels[item.data.type]}
+            </div>
+            <h2
+              class="font-display text-h3 text-fg m-0 mb-3 text-balance transition-colors group-hover:text-accent"
+              style="font-variation-settings: 'opsz' 48"
+            >
+              {item.data.title}
+            </h2>
+            <p class="font-mono text-lede text-fg-secondary m-0 max-w-ch60">
+              {item.data.summary}
+            </p>
+          </div>
+          <div class="md:self-start">
+            <HeroMedia hero={item.data.media[0]} aspectRatio="16/9" label="MEDIA" preferStill={true} />
+          </div>
+        </a>
+      ))}
     </div>
+
+    <section class="max-w-ch60">
+      <h2 class="font-mono text-micro text-fg-muted uppercase m-0 mb-4">
+        / INTERESTS
+      </h2>
+      <p class="font-mono text-body text-fg-secondary m-0">
+        RF-photonics, photonic integrated circuits, and microelectronics.
+      </p>
+    </section>
   </div>
 </Layout>

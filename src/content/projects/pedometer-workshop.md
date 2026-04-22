@@ -4,7 +4,6 @@ date: 2026-02-20
 status: "complete"
 role: "Workshop lead · PCB design · BOM"
 tools: ["KiCad", "C"]
-tags: ["pcb-design", "kicad", "teaching", "ieee", "workshop"]
 summary: "A one-session IEEE MSU workshop taking undergrads from never-opened-KiCad to a soldered, flashed, working pedometer."
 ---
 

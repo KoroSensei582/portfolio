@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TickRule from '../../components/TickRule.astro';
+import CoordLine from '../../components/CoordLine.astro';
+import HeroMedia from '../../components/HeroMedia.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('research');
+  return items.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props { entry: CollectionEntry<'research'> }
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { title, date, type, summary, media } = entry.data;
+const year = date.getFullYear();
+
+const typeLabels: Record<typeof type, string> = {
+  'lab-work': 'Lab work',
+  'conference': 'Conference',
+  'paper-reading': 'Paper reading',
+};
+
+function mediaLabel(i: number) {
+  return i === 0 ? 'HERO / MEDIA' : `MEDIA / ${String(i + 1).padStart(2, '0')}`;
+}
+---
+
+<Layout
+  title={`${title} — Shahir Ahmed`}
+  description={summary}
+>
+  <TickRule />
+
+  <div class="mx-auto max-w-container px-6 sm:px-8 pt-16 pb-28">
+    <div class="mb-10">
+      <a href="/research" class="btn-ghost">← BACK TO RESEARCH</a>
+    </div>
+
+    <CoordLine page="/research" />
+
+    <h1
+      class="font-display text-h1 text-fg m-0 mb-8 text-balance"
+      style="font-variation-settings: 'opsz' 72"
+    >
+      {title}<span class="text-accent">.</span>
+    </h1>
+
+    <div class="detail-layout">
+      <div class="detail-main">
+        <p class="font-mono text-lede text-fg-secondary m-0 mb-8 max-w-ch60">
+          {summary}
+        </p>
+
+        <div class="meta-cluster mb-12">
+          <span>TYPE / {typeLabels[type]}</span>
+          <span>YEAR / {year}</span>
+        </div>
+
+        <div class="content-prose max-w-ch60">
+          <Content />
+        </div>
+      </div>
+
+      <aside class="detail-media flex flex-col gap-6">
+        {media.length === 0 ? (
+          Array.from({ length: 3 }).map((_, i) => (
+            <HeroMedia aspectRatio="16/9" label={mediaLabel(i)} />
+          ))
+        ) : (
+          media.map((item, i) => (
+            <HeroMedia hero={item} aspectRatio="16/9" label={mediaLabel(i)} />
+          ))
+        )}
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .detail-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  @media (min-width: 1024px) {
+    .detail-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 400px;
+      column-gap: 3rem;
+      align-items: start;
+    }
+  }
+</style>

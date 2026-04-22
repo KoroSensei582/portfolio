@@ -1,12 +1,9 @@
 ---
+import { pages } from '../config/pages';
+
 const pathname = Astro.url.pathname;
 
-const links = [
-  { href: '/about',    label: 'ABOUT' },
-  { href: '/research', label: 'RESEARCH' },
-  { href: '/projects', label: 'PROJECTS' },
-  { href: '/contact',  label: 'CONTACT' },
-];
+const links = pages.filter((p) => p.path !== '/');
 
 function isActive(href: string) {
   if (href === '/') return pathname === '/';
@@ -31,12 +28,12 @@ function isActive(href: string) {
 
     <nav aria-label="Primary">
       <ul class="flex items-center gap-5 sm:gap-8 list-none m-0 p-0">
-        {links.map(({ href, label }) => (
+        {links.map(({ path, label }) => (
           <li>
             <a
-              href={href}
-              class:list={['nav-link', { active: isActive(href) }]}
-              aria-current={isActive(href) ? 'page' : undefined}
+              href={path}
+              class:list={['nav-link', { active: isActive(path) }]}
+              aria-current={isActive(path) ? 'page' : undefined}
             >
               {label}
             </a>

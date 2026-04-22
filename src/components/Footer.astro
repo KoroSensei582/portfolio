@@ -2,6 +2,12 @@
 import TickRule from './TickRule.astro';
 
 const build = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
+
+const socials = [
+  { label: 'LINKEDIN', href: 'https://www.linkedin.com/in/ahmeds60', newTab: true },
+  { label: 'GITHUB',   href: 'https://github.com/KoroSensei582',     newTab: true },
+  { label: 'RESUME',   href: '/resume.pdf',                          newTab: true },
+];
 ---
 
 <footer class="border-t border-rule">
@@ -9,14 +15,25 @@ const build = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
     <div class="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
       <address class="not-italic font-mono flex flex-col gap-1">
         <a
-          href="mailto:shahirahmed117@gmail.com"
+          href="mailto:ahmeds2609@gmail.com"
           class="text-meta text-fg-secondary hover:text-fg transition-colors duration-fast"
         >
-          shahirahmed117@gmail.com
+          ahmeds2609@gmail.com
         </a>
-        <span class="text-coord text-fg-muted uppercase">
-          LINKEDIN / GITHUB / RESUME
-        </span>
+        <div class="text-coord text-fg-muted uppercase">
+          {socials.map(({ label, href, newTab }, i) => (
+            <>
+              {i > 0 && ' / '}
+              <a
+                href={href}
+                class="hover:text-fg transition-colors duration-fast"
+                {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                {label}
+              </a>
+            </>
+          ))}
+        </div>
       </address>
 
       <div class="font-mono text-coord text-fg-muted uppercase sm:text-right flex flex-col gap-1">

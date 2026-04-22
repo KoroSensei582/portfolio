@@ -1,13 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TickRule from '../components/TickRule.astro';
+import CoordLine from '../components/CoordLine.astro';
 import ProjectBlock from '../components/ProjectBlock.astro';
 import { getCollection } from 'astro:content';
 
 const all = await getCollection('projects');
 
 // Featured on homepage — order matches the selected-work direction in the design
-const featuredSlugs = ['imu-board', 'hand-controlled-drone', 'pedometer-workshop'];
+const featuredSlugs = ['imu-breakout', 'hand-controlled-drone', 'pedometer-workshop'];
 const featured = featuredSlugs
   .map((s) => all.find((p) => p.slug === s))
   .filter((p): p is NonNullable<typeof p> => p !== undefined);
@@ -34,11 +35,7 @@ const incomingRole = {
     aria-labelledby="hero-heading"
     class="mx-auto max-w-container px-6 sm:px-8 pt-12 sm:pt-16 pb-16 sm:pb-20"
   >
-    <div class="coord-line mb-10 sm:mb-12 reveal-item" style="--i: 0;">
-      <span>[&nbsp;00.00&nbsp;]&nbsp;&nbsp;EE / MSU</span>
-      <span class="hidden sm:inline">LAT 42.7370°N&nbsp;&nbsp;LON 84.4839°W</span>
-      <span class="sm:hidden">42.7370°N / 84.4839°W</span>
-    </div>
+    <CoordLine page="/" class="sm:mb-12" revealIndex={0} />
 
     <h1
       id="hero-heading"
@@ -134,6 +131,7 @@ const incomingRole = {
           tools={project.data.tools}
           date={project.data.date}
           revealIndex={9 + i}
+          href={`/projects/${project.slug}`}
         />
       ))}
     </div>

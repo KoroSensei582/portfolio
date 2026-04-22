@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TickRule from '../../components/TickRule.astro';
+import CoordLine from '../../components/CoordLine.astro';
 import ProjectBlock from '../../components/ProjectBlock.astro';
 import { getCollection } from 'astro:content';
 
@@ -15,11 +16,7 @@ const projects = allProjects.sort((a, b) => b.data.date.getTime() - a.data.date.
   <TickRule />
 
   <div class="mx-auto max-w-container px-6 sm:px-8 pt-16 pb-28">
-    <div class="coord-line mb-10">
-      <span>[&nbsp;00.03&nbsp;]&nbsp;&nbsp;PROJECTS</span>
-      <span class="hidden sm:inline">LAT 42.7370°N&nbsp;&nbsp;LON 84.4839°W</span>
-      <span class="sm:hidden">42.7370°N / 84.4839°W</span>
-    </div>
+    <CoordLine page="/projects" />
 
     <h1
       class="font-display text-h1 text-fg m-0 mb-14 text-balance"
@@ -39,6 +36,9 @@ const projects = allProjects.sort((a, b) => b.data.date.getTime() - a.data.date.
           tools={project.data.tools}
           date={project.data.date}
           headingLevel={2}
+          href={`/projects/${project.slug}`}
+          hero={project.data.media[0]}
+          showHero={true}
         />
       ))}
       <div class="border-b border-rule"></div>

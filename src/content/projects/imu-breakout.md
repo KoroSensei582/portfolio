@@ -4,7 +4,6 @@ date: 2025-11-15
 status: "complete"
 role: "PCB design"
 tools: ["Altium Designer"]
-tags: ["pcb-design", "altium", "i2c", "personal-project"]
 summary: "A six-axis IMU breakout board designed end-to-end in Altium — schematic, layout, BOM."
 ---
 

@@ -4,7 +4,6 @@ date: 2025-09-15
 status: "ongoing"
 role: "Vehicle Controls & Sensing · contributor"
 tools: ["Altium Designer"]
-tags: ["pcb-design", "altium", "team-project", "solar-car"]
 summary: "Contributing to 4-layer, impedance-controlled PCBs for MSU Solar Car Racing — my first exposure to signal integrity on a real, safety-critical system."
 ---
 

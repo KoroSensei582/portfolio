@@ -1,0 +1,72 @@
+---
+interface HeroImage { type: 'image'; src: string; alt: string }
+interface HeroVideo { type: 'video'; src: string; poster?: string; alt: string }
+type Hero = HeroImage | HeroVideo;
+
+interface Props {
+  hero?: Hero;
+  aspectRatio?: string;
+  label?: string;
+  preferStill?: boolean;
+}
+
+const { hero, aspectRatio = '16/9', label = 'HERO', preferStill = false } = Astro.props;
+
+type Resolved =
+  | { kind: 'placeholder' }
+  | { kind: 'image'; src: string; alt: string }
+  | { kind: 'video'; src: string; poster?: string; alt: string };
+
+const resolved: Resolved = (() => {
+  if (!hero) return { kind: 'placeholder' };
+  if (hero.type === 'image') return { kind: 'image', src: hero.src, alt: hero.alt };
+  if (preferStill) {
+    if (hero.poster) return { kind: 'image', src: hero.poster, alt: hero.alt };
+    return { kind: 'placeholder' };
+  }
+  return { kind: 'video', src: hero.src, poster: hero.poster, alt: hero.alt };
+})();
+---
+
+<div
+  class="border border-rule bg-bg-elevated relative overflow-hidden"
+  style={`aspect-ratio: ${aspectRatio}`}
+>
+  {resolved.kind === 'placeholder' && (
+    <>
+      <svg
+        class="absolute inset-0 w-full h-full"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <line x1="0" y1="0" x2="100%" y2="100%" stroke="var(--rule)" stroke-width="1" />
+        <line x1="100%" y1="0" x2="0" y2="100%" stroke="var(--rule)" stroke-width="1" />
+      </svg>
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <span class="font-mono text-coord text-fg-muted uppercase bg-bg-elevated px-3 py-1">
+          {label}
+        </span>
+      </div>
+    </>
+  )}
+  {resolved.kind === 'image' && (
+    <img
+      src={resolved.src}
+      alt={resolved.alt}
+      class="w-full h-full object-cover"
+      loading="lazy"
+    />
+  )}
+  {resolved.kind === 'video' && (
+    <video
+      src={resolved.src}
+      poster={resolved.poster}
+      controls
+      muted
+      playsinline
+      preload="metadata"
+      aria-label={resolved.alt}
+      class="w-full h-full object-cover"
+    ></video>
+  )}
+</div>

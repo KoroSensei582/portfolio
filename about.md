@@ -11,6 +11,6 @@ This summer I'll join Professor Thomas Clark's photonics lab, which is a deliber
 
 **Contact**
 
-- [your-email@domain.com](mailto:your-email@domain.com)
+- [ahmeds2609@gmail.com](mailto:ahmeds2609@gmail.com)
 - GitHub — [github.com/your-handle](https://github.com/your-handle)
 - LinkedIn — [linkedin.com/in/your-handle](https://linkedin.com/in/your-handle)

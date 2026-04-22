@@ -1,0 +1,27 @@
+---
+import { getPage, type PagePath } from '../config/pages';
+
+interface Props {
+  page: PagePath;
+  label?: string;
+  class?: string;
+  revealIndex?: number;
+}
+
+const { page, label: labelOverride, class: extraClass, revealIndex } = Astro.props;
+const entry = getPage(page);
+const label = labelOverride ?? entry.label;
+---
+
+<div
+  class:list={[
+    'coord-line mb-10',
+    extraClass,
+    { 'reveal-item': revealIndex !== undefined },
+  ]}
+  style={revealIndex !== undefined ? `--i: ${revealIndex};` : undefined}
+>
+  <span>[&nbsp;{entry.coord}&nbsp;]&nbsp;&nbsp;{label}</span>
+  <span class="hidden sm:inline">LAT 42.7370°N&nbsp;&nbsp;LON 84.4839°W</span>
+  <span class="sm:hidden">42.7370°N / 84.4839°W</span>
+</div>

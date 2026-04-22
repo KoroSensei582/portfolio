@@ -4,7 +4,6 @@ date: 2026-03-01
 status: "in-progress"
 role: "Hardware · firmware"
 tools: ["KiCad", "C"]
-tags: ["pcb-design", "kicad", "embedded", "drone", "in-progress"]
 summary: "A gesture-driven quadcopter prototype — IMU input on a wearable, onboard firmware parsing pose into flight commands."
 ---
 

@@ -1,5 +1,10 @@
 ---
 import Badge from './Badge.astro';
+import HeroMedia from './HeroMedia.astro';
+
+interface HeroImage { type: 'image'; src: string; alt: string }
+interface HeroVideo { type: 'video'; src: string; poster?: string; alt: string }
+type Hero = HeroImage | HeroVideo;
 
 interface Props {
   index: number;
@@ -11,18 +16,42 @@ interface Props {
   date: Date;
   revealIndex?: number;
   headingLevel?: 2 | 3;
+  href?: string;
+  hero?: Hero;
+  showHero?: boolean;
 }
 
-const { index, title, summary, status, role, tools, date, revealIndex, headingLevel = 3 } = Astro.props;
+const {
+  index,
+  title,
+  summary,
+  status,
+  role,
+  tools,
+  date,
+  revealIndex,
+  headingLevel = 3,
+  href,
+  hero,
+  showHero = false,
+} = Astro.props;
 const year = date.getFullYear();
 const num = String(index).padStart(2, '0');
 const Heading = headingLevel === 2 ? 'h2' : 'h3';
+const Wrapper = href ? 'a' : 'article';
+
+const gridCols = showHero
+  ? 'grid-cols-[auto_1fr] md:grid-cols-[140px_minmax(0,_1fr)_280px]'
+  : 'grid-cols-[auto_1fr] md:grid-cols-[160px_1fr]';
 ---
 
-<article
+<Wrapper
+  {...(href ? { href } : {})}
   class:list={[
-    'border-t border-rule py-10 grid gap-6 md:gap-8 grid-cols-[auto_1fr] md:grid-cols-[160px_1fr]',
+    'border-t border-rule py-10 grid gap-6 md:gap-8',
+    gridCols,
     { 'reveal-item': revealIndex !== undefined },
+    { 'group no-underline': !!href },
   ]}
   style={revealIndex !== undefined ? `--i: ${revealIndex};` : undefined}
 >
@@ -51,7 +80,10 @@ const Heading = headingLevel === 2 ? 'h2' : 'h3';
 
   <div class="min-w-0">
     <Heading
-      class="font-display text-h3 text-fg m-0 mb-3 text-balance"
+      class:list={[
+        'font-display text-h3 text-fg m-0 mb-3 text-balance',
+        { 'transition-colors group-hover:text-accent': !!href },
+      ]}
       style="font-variation-settings: 'opsz' 48"
     >
       {title}
@@ -64,4 +96,10 @@ const Heading = headingLevel === 2 ? 'h2' : 'h3';
       <span>TOOLS / {tools.join(', ')}</span>
     </div>
   </div>
-</article>
+
+  {showHero && (
+    <div class="col-span-2 md:col-span-1 md:self-start">
+      <HeroMedia hero={hero} aspectRatio="16/9" label="MEDIA" preferStill={true} />
+    </div>
+  )}
+</Wrapper>
