@@ -136,11 +136,9 @@ button:focus-visible {
   }
 }
 
-/* ─── Nav (scroll-blur state) ────────────────────────────────── */
+/* ─── Nav (scrolled state) ───────────────────────────────────── */
 #site-nav[data-scrolled="true"] {
-  background: rgba(5, 5, 5, 0.72);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(5, 5, 5, 0.92);
   border-bottom: 1px solid var(--rule);
 }
 
