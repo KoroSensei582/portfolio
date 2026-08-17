@@ -67,23 +67,40 @@ import CoordLine from '../components/CoordLine.astro';
           <h2 class="font-mono text-micro text-fg-muted uppercase m-0 mb-4">
             / RESUME
           </h2>
+          <!-- iOS Safari gives an iframed PDF no viewer: it renders zoomed in and pans
+               instead of scrolling. Phones get a static page-1 image linking to the PDF. -->
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="md:hidden block border border-rule bg-bg-elevated overflow-hidden mb-4"
+          >
+            <img
+              src="/images/resume-preview.webp"
+              alt="First page of Shahir Ahmed's resume"
+              width="1224"
+              height="1584"
+              class="w-full h-auto block"
+              loading="lazy"
+            />
+          </a>
           <div
-            class="border border-rule bg-bg-elevated overflow-hidden mb-4"
+            class="hidden md:block border border-rule bg-bg-elevated overflow-hidden mb-4"
             style="aspect-ratio: 8.5/11"
           >
             <iframe
               src="/resume.pdf#view=FitH"
-              title="Curriculum Vitae — Shahir Ahmed"
+              title="Resume — Shahir Ahmed"
               class="w-full h-full block border-0"
               loading="lazy"
             ></iframe>
           </div>
           <a
             href="/resume.pdf"
-            download="Shahir_Ahmed_CV.pdf"
+            download="Shahir_Ahmed_Resume.pdf"
             class="btn w-full justify-center"
           >
-            ↓ DOWNLOAD CV
+            ↓ DOWNLOAD RESUME
           </a>
         </section>
       </aside>
