@@ -1,7 +1,7 @@
 ---
 title: "MSU Solar Car Racing"
 organization: "MSU Solar Car Racing"
-role: "Vehicle Controls and Sensing"
+role: "Harnessing and Integration Lead"
 location: "East Lansing, MI"
 startDate: 2025-09-01
 endDate: null
@@ -23,7 +23,7 @@ media:
 
 ## 00.01 — Context
 
-I have been on **MSU Solar Car Racing** since September 2025, working on **Vehicle Controls and Sensing**. The car is MSU's official entry for the **2026 Formula Sun Grand Prix** and the **American Solar Challenge**.
+I joined **MSU Solar Car Racing** in September 2025 on **Vehicle Controls and Sensing**, and I am now the team's **Harnessing and Integration Lead**. The car is MSU's official entry for the **2026 Formula Sun Grand Prix** and the **American Solar Challenge**.
 Controls and Sensing owns three boards VEGA, Altair, and Deneb which together act as the brain of the car.
 
 ---

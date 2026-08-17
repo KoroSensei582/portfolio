@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "about.md",
+                "file": "src/content/projects/riscv-cpu.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "about"
+              "title": "riscv-cpu"
             }
           }
         ],
@@ -197,6 +197,7 @@
   },
   "active": "682382f74cde110a",
   "lastOpenFiles": [
+    "about.md",
     "dist/index.html",
     "dist/research/microtechnology-lab/index.html",
     "dist/research/uuraf-2026-lightning-connectors/index.html",
@@ -207,7 +208,6 @@
     "dist/research/rf-photonics-lab",
     "dist/research",
     "dist/projects/wifi-presence-radar/index.html",
-    "dist/projects/satellite-groundstation/index.html",
     "dist/images/projects/wifi-presence-radar/hero.png",
     "dist/images/projects/wifi-presence-radar/2.jpeg",
     "dist/images/research/microtechnology-lab/hero.png",
@@ -230,7 +230,6 @@
     "src/content/projects/anc-engine.md",
     "CLAUDE.md",
     "pedometer-workshop.md",
-    "hand-controlled-drone.md",
-    "about.md"
+    "hand-controlled-drone.md"
   ]
 }
